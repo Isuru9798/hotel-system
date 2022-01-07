@@ -17,7 +17,7 @@ class studentMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->role == 3) {
+        if (Auth::check() && Auth::user()->role == 4) {
             # code...
             return $next($request);
         } else {
