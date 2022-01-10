@@ -54,7 +54,7 @@
         <table class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
-                    <th>Description</th>
+                    <th>Room Number</th>
                     <th>doller rate</th>
                     <th>amount_doller</th>
                     <th>amount_lkr</th>
@@ -66,7 +66,7 @@
             <tbody>
                 @foreach($room_bills as $room_bill)
                 <tr>
-                    <td>{{ $room_bill->rm_type }}</td>
+                    <td>{{ $room_bill->rm_number }}</td>
                     <td>{{ $room_bill->rb_doller_rate }}</td>
                     <td>{{ $room_bill->rb_amount_doller }}</td>
                     <td>{{ $room_bill->rb_cost }}</td>

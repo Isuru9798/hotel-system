@@ -23,39 +23,33 @@
 <div class="row">
     <table>
         <tr>
-            <th>Description</th>
+            <th>Room Number</th>
             <th>lon_amount</th>
             <th>lon_quantity</th>
-            
-            <th>tx_vehicle_num</th>
-            <th>tx_amount</th>
-            <th>tx_tax</th>
-            <th>date</th>
             <th>total</th>
+            <th>date</th>
             <th>status</th>
             <th>action</th>
         </tr>
-        @foreach($taxi_bills as $taxi_bill)
+        @foreach($laundry_bills as $laundry_bill)
         <tr>
-            <td>{{ $taxi_bill->rm_type }}</td>
-            <td>{{ $taxi_bill->tx_destination }}</td>
-            <td>{{ $taxi_bill->tx_num_of_days }}</td>
-            <td>{{ $taxi_bill->tx_vehicle_num }}</td>
-            <td>{{ $taxi_bill->tx_amount }}</td>
-            <td>{{ $taxi_bill->tx_tax }}</td>
-            <td>{{ $taxi_bill->tx_issue_date }}</td>
-            <td>{{ $taxi_bill->tx_amount + $taxi_bill->tx_tax }}</td>
-            @if( $taxi_bill->tx_status == env('PAID'))
+            <td>{{ $laundry_bill->rm_number }}</td>
+            <td>{{ $laundry_bill->lon_amount }}</td>
+            <td>{{ $laundry_bill->lon_quantity }}</td>
+            <td>{{ $laundry_bill->lon_amount * $laundry_bill->lon_quantity }}</td>
+            <td>{{ $laundry_bill->lon_issue_date }}</td>
+
+            @if( $laundry_bill->lon_status == env('PAID'))
             <td>Paid</td>
             @endif
-            @if( $taxi_bill->tx_status == env('UNPAID'))
+            @if( $laundry_bill->lon_status == env('UNPAID'))
             <td>Un Paid</td>
             @endif
-            @if( $taxi_bill->tx_status == env('CANCELED'))
+            @if( $laundry_bill->lon_status == env('CANCELED'))
             <td>Canceled</td>
             @endif
             <td>
-                <a href="{{ route('taxi-bill.cancel',$taxi_bill->taxi_id) }}">Cancel</a>
+                <a href="{{ route('laundry-bill.cancel',$laundry_bill->laundry_id) }}">Cancel</a>
             </td>
         </tr>
         @endforeach

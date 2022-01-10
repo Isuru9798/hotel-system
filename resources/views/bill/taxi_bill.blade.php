@@ -24,7 +24,7 @@
 <div class="row">
     <table>
         <tr>
-            <th>Description</th>
+            <th>Room Number</th>
             <th>tx_destination</th>
             <th>tx_num_of_days</th>
             <th>tx_vehicle_num</th>
@@ -37,7 +37,7 @@
         </tr>
         @foreach($taxi_bills as $taxi_bill)
         <tr>
-            <td>{{ $taxi_bill->rm_type }}</td>
+            <td>{{ $taxi_bill->rm_number }}</td>
             <td>{{ $taxi_bill->tx_destination }}</td>
             <td>{{ $taxi_bill->tx_num_of_days }}</td>
             <td>{{ $taxi_bill->tx_vehicle_num }}</td>
