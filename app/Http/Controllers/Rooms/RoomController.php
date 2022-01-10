@@ -16,14 +16,12 @@ class RoomController extends Controller
     }
     function store(Request $request)
     {
-
         Rooms::create([
             'rm_number' => $request->rm_number,
             'rm_type' => $request->rm_type,
-            'rm_availability' => $request->rm_availability,
+            'rm_availability' => 1,
         ]);
-        $rooms = Rooms::all();
-        return view('rooms.rooms', ['rooms' => $rooms]);
+        return redirect()->route('rooms');
     }
     function getById($id)
     {

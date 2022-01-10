@@ -55,5 +55,10 @@ Route::prefix('main-admin')->group(function () {
         Route::get('get-check-in/{id}', [CheckInController::class, 'getById'])->name('checkIn.getById');
         Route::get('cancel-check-in/{id}', [CheckInController::class, 'cancelCheckIn'])->name('checkIn.cancel');
         // Route::post('delete-check-in/{id}', [CheckInController::class, 'delete'])->name('checkIn.delete');
+
+
+        // room bills
+        Route::get('items', [ItemsController::class, 'index'])->name('items');
+        Route::post('add-item', [ItemsController::class, 'store'])->name('item.add');
     });
 });
