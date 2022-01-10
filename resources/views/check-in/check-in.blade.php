@@ -29,7 +29,7 @@
                 @foreach($checkIns as $key => $check)
                 
                 <tr>
-                    <td>{{ $key+1 }}</td>
+                    <td>{{ $key }}</td>
                     <td>{{$check['guest']['gs_name']}}</td>
                     <td>{{ $check['ci_in_date'] }}</td>
                     <td>{{ $check['ci_out_date'] }}</td>
