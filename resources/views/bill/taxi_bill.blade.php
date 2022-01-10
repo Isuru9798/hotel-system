@@ -1,6 +1,55 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="card">
+    <div class="card-body">
+        <form>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Room Id</label>
+                    <select class="form-control" id="roomSelect" onclick="getRoomData()">
+                        @foreach($rooms as $room)
+                        <option value="{{ $room->id }}">{{ $room->rm_number }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Guest Name</label>
+                    <input type="text" class="form-control" placeholder="Jone Doe" name="guest" id="guest" readonly>
+                </div>
+            </div>
+            <div class="form-row ">
+                <div class="form-group col-md-6">
+                    <label for="inputAddress">Address</label>
+                    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputAddress2">Address 2</label>
+                    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputCity">City</label>
+                    <input type="text" class="form-control" id="inputCity">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputState">State</label>
+                    <select id="inputState" class="form-control">
+                        <option selected>Choose...</option>
+                        <option>...</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputZip">Zip</label>
+                    <input type="text" class="form-control" id="inputZip">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Sign in</button>
+        </form>
+    </div>
+</div>
 <div class="row">
     <form action="{{ route('taxi-bill.add') }}" method="post">
         @csrf
