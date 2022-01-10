@@ -69,6 +69,7 @@
         <!-- page-body-wrapper ends -->
     </div>
     @include('layouts.footer')
+    @yield('js')
 </body>
 
 </html>

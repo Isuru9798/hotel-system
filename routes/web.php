@@ -49,11 +49,11 @@ Route::prefix('main-admin')->group(function () {
         Route::post('update-item/{id}', [ItemsController::class, 'update'])->name('item.update');
         Route::post('delete-item/{id}', [ItemsController::class, 'delete'])->name('item.delete');
 
-
+        // check in
         Route::get('check-in', [CheckInController::class, 'index'])->name('checkIn');
         Route::post('add-check-in', [CheckInController::class, 'store'])->name('checkIn.add');
-        Route::get('get-item/{id}', [CheckInController::class, 'getById'])->name('item.getById');
-        Route::post('update-item/{id}', [CheckInController::class, 'update'])->name('item.update');
-        Route::post('delete-item/{id}', [CheckInController::class, 'delete'])->name('item.delete');
+        Route::get('get-check-in/{id}', [CheckInController::class, 'getById'])->name('checkIn.getById');
+        Route::get('cancel-check-in/{id}', [CheckInController::class, 'cancelCheckIn'])->name('checkIn.cancel');
+        // Route::post('delete-check-in/{id}', [CheckInController::class, 'delete'])->name('checkIn.delete');
     });
 });
