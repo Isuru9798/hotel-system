@@ -2,7 +2,7 @@
 
 @section('content')
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-    +
++
 </button>
 <div class="card text-center">
     <h5 class="card-header">Rooms</h5>
