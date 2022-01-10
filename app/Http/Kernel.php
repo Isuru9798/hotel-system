@@ -4,9 +4,6 @@ namespace App\Http;
 
 use App\Http\Middleware\mainAdminMiddleware;
 use App\Http\Middleware\preventBackHistory;
-use App\Http\Middleware\schoolAdminMiddleware;
-use App\Http\Middleware\studentMiddleware;
-use App\Http\Middleware\teacherMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -69,9 +66,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'isMainAdmin' => mainAdminMiddleware::class,
-        'isSchoolAdmin' => schoolAdminMiddleware::class,
-        'isTeacher' => teacherMiddleware::class,
-        'isStudent' => studentMiddleware::class,
         'prvBackHistory' => preventBackHistory::class
     ];
 }

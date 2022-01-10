@@ -17,7 +17,7 @@ class mainAdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->role == 1) {
+        if (Auth::check() && Auth::user()->role == env('ADMIN')) {
             # code...
             return $next($request);
         } else {

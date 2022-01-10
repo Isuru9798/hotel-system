@@ -25,15 +25,16 @@ class RedirectIfAuthenticated
             // if (Auth::guard($guard)->check()) {
             //     return redirect(RouteServiceProvider::HOME);
             // }
-            if (Auth::guard($guard)->check() && Auth::user()->role == 1) {
+            if (Auth::guard($guard)->check() && Auth::user()->role == env('ADMIN')) {
                 return redirect()->route('mainAdmin.dashboard');
-            } elseif (Auth::guard($guard)->check() && Auth::user()->role == 2) {
-                return redirect()->route('schoolAdmin.dashboard');
-            } elseif (Auth::guard($guard)->check() && Auth::user()->role == 3) {
-                return redirect()->route('teacher.dashboard');
-            } elseif (Auth::guard($guard)->check() && Auth::user()->role == 4) {
-                return redirect()->route('student.dashboard');
             }
+            // elseif (Auth::guard($guard)->check() && Auth::user()->role == 2) {
+            //     return redirect()->route('schoolAdmin.dashboard');
+            // } elseif (Auth::guard($guard)->check() && Auth::user()->role == 3) {
+            //     return redirect()->route('teacher.dashboard');
+            // } elseif (Auth::guard($guard)->check() && Auth::user()->role == 4) {
+            //     return redirect()->route('student.dashboard');
+            // }
         }
 
         return $next($request);

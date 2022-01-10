@@ -31,15 +31,16 @@ class LoginController extends Controller
     protected $redirectTo = RouteServiceProvider::HOME;
     protected function redirectTo()
     {
-        if (auth()->user()->role == 1) {
+        if (auth()->user()->role == env('ADMIN')) {
             return route('mainAdmin.dashboard');
-        } elseif (auth()->user()->role == 2) {
-            return route('schoolAdmin.dashboard');
-        } elseif (auth()->user()->role == 3) {
-            return route('teacher.dashboard');
-        } elseif (auth()->user()->role == 4) {
-            return route('student.dashboard');
         }
+        // elseif (auth()->user()->role == 2) {
+        //     return route('schoolAdmin.dashboard');
+        // } elseif (auth()->user()->role == 3) {
+        //     return route('teacher.dashboard');
+        // } elseif (auth()->user()->role == 4) {
+        //     return route('student.dashboard');
+        // }
     }
     /**
      * Create a new controller instance.
@@ -56,18 +57,19 @@ class LoginController extends Controller
         $input = $request->all();
         $this->validate($request, [
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required | min:6'
         ]);
         if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
             if (auth()->user()->role == 1) {
                 return redirect()->route('mainAdmin.dashboard');
-            } elseif (auth()->user()->role == 2) {
-                return redirect()->route('schoolAdmin.dashboard');
-            } elseif (auth()->user()->role == 3) {
-                return redirect()->route('teacher.dashboard');
-            } elseif (auth()->user()->role == 4) {
-                return redirect()->route('student.dashboard');
             }
+            // elseif (auth()->user()->role == 2) {
+            //     return redirect()->route('schoolAdmin.dashboard');
+            // } elseif (auth()->user()->role == 3) {
+            //     return redirect()->route('teacher.dashboard');
+            // } elseif (auth()->user()->role == 4) {
+            //     return redirect()->route('student.dashboard');
+            // }
         } else {
             return redirect()->route('login')->with('error', 'Email and password are wrong');
         }

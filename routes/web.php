@@ -1,9 +1,6 @@
 <?php
 
 use App\Http\Controllers\mainAdmin\MainAdminController;
-use App\Http\Controllers\schoolAdmin\SchoolAdminController;
-use App\Http\Controllers\student\StudentController;
-use App\Http\Controllers\teacher\TeacherController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -28,22 +25,10 @@ Route::middleware(['prvBackHistory'])->group(function () {
 });
 
 Route::prefix('main-admin')->group(function () {
+    Route::get('/', function () {
+        return redirect()->route('mainAdmin.dashboard');
+    });
     Route::middleware(['isMainAdmin', 'auth', 'prvBackHistory'])->group(function () {
         Route::get('dashboard', [MainAdminController::class, 'index'])->name('mainAdmin.dashboard');
-    });
-});
-Route::prefix('school-admin')->group(function () {
-    Route::middleware(['isSchoolAdmin', 'auth', 'prvBackHistory'])->group(function () {
-        Route::get('dashboard', [SchoolAdminController::class, 'index'])->name('schoolAdmin.dashboard');
-    });
-});
-Route::prefix('teacher')->group(function () {
-    Route::middleware(['isTeacher', 'auth', 'prvBackHistory'])->group(function () {
-        Route::get('dashboard', [TeacherController::class, 'index'])->name('teacher.dashboard');
-    });
-});
-Route::prefix('student')->group(function () {
-    Route::middleware(['isStudent', 'auth', 'prvBackHistory'])->group(function () {
-        Route::get('dashboard', [StudentController::class, 'index'])->name('student.dashboard');
     });
 });
