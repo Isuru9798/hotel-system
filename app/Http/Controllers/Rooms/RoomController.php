@@ -36,13 +36,11 @@ class RoomController extends Controller
                 'rm_type' => $request->rm_type,
                 'rm_availability' => $request->rm_availability,
             ]);
-        $rooms = Rooms::all();
-        return view('rooms.rooms', ['rooms' => $rooms]);
+        return redirect()->route('rooms');
     }
     function delete($id)
     {
         Rooms::destroy($id);
-        $rooms = Rooms::all();
-        return view('rooms.rooms', ['rooms' => $rooms]);
+        return redirect()->route('rooms');
     }
 }
