@@ -69,7 +69,14 @@ Route::prefix('main-admin')->group(function () {
         // taxi bills
         Route::get('taxi-bills', [TaxiBillController::class, 'index'])->name('taxi-bills');
         // Route::post('get-data-by-room-id', [RoomBillController::class, 'getDataByRoom'])->name('room-bills.getByRoom');
-        // Route::post('add-room-bill', [RoomBillController::class, 'store'])->name('room-bill.add');
-        // Route::get('cancel-room-bill/{id}', [RoomBillController::class, 'cancel'])->name('room-bill.cancel');
+        Route::post('add-taxi-bill', [TaxiBillController::class, 'store'])->name('taxi-bill.add');
+        Route::get('cancel-taxi-bill/{id}', [TaxiBillController::class, 'cancel'])->name('taxi-bill.cancel');
+
+
+        // laundry bills
+        Route::get('laundry-bills', [TaxiBillController::class, 'index'])->name('laundry-bills');
+        // Route::post('get-data-by-room-id', [RoomBillController::class, 'getDataByRoom'])->name('room-bills.getByRoom');
+        Route::post('add-laundry-bill', [TaxiBillController::class, 'store'])->name('laundry-bill.add');
+        Route::get('cancel-laundry-bill/{id}', [TaxiBillController::class, 'cancel'])->name('laundry-bill.cancel');
     });
 });

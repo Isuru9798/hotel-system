@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row">
-    <form action="{{ route('taxi-bill.add') }}" method="post">
+    <form action="{{ route('laundry-bill.add') }}" method="post">
         @csrf
         <select id="roomSelect" onclick="getRoomData()">
             @foreach($rooms as $room)
@@ -10,13 +10,12 @@
             @endforeach
         </select>
         <input type="text" name="guest" id="guest" readonly>
-        <input type="date" name="tx_issue_date" placeholder="tx_issue_date">
+        <input type="date" name="lon_issue_date" placeholder="lon_issue_date">
 
-        <input type="text" placeholder="tx_destination" id="tx_destination" name="tx_destination">
-        <input type="text" placeholder="tx_vehicle_num" id="tx_vehicle_num" name="tx_vehicle_num">
-        <input type="text" placeholder="tx_num_of_days" id="tx_num_of_days" name="tx_num_of_days">
-        <input type="text" placeholder="tx_amount" id="tx_amount" name="tx_amount">
-        <input type="text" placeholder="tx_tax" id="tx_tax" name="tx_tax">
+        <input type="text" placeholder="lon_item" id="lon_item" name="lon_item">
+        <input type="text" placeholder="lon_quantity" id="lon_quantity" name="lon_quantity">
+        <input type="text" placeholder="lon_amount per unit " id="lon_amount" name="lon_amount">
+
         <input type="hidden" id="checked_rooms_id" name="checked_rooms_id" value="">
         <button type="submit" class="btn btn-primary">Save changes</button>
     </form>
@@ -25,8 +24,9 @@
     <table>
         <tr>
             <th>Description</th>
-            <th>tx_destination</th>
-            <th>tx_num_of_days</th>
+            <th>lon_amount</th>
+            <th>lon_quantity</th>
+            
             <th>tx_vehicle_num</th>
             <th>tx_amount</th>
             <th>tx_tax</th>
