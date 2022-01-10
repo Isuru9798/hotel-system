@@ -16,6 +16,8 @@ class CreateRoomBillsTable extends Migration
         Schema::create('room_bills', function (Blueprint $table) {
             $table->id();
             $table->date('rb_issue_date');
+            $table->string('rb_doller_rate');
+            $table->string('rb_amount_doller');
             $table->string('rb_cost');
             $table->string('rb_status')->default('pending');
             $table->foreignId('checked_rooms_id');

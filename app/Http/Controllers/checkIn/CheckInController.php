@@ -85,6 +85,10 @@ class CheckInController extends Controller
 
         $checkedRooms = json_decode($request->selectedRooms);
         foreach ($checkedRooms as $key => $value) {
+            Rooms::where('id', $value)
+                ->update([
+                    'rm_availability' => env('UNAVAILABLE'),
+                ]);
             CheckedRooms::create([
                 'status' => 'unpaid',
                 'rooms_id' => $value,

@@ -25,7 +25,14 @@
                     <td>{{ $key+1 }}</td>
                     <td>{{ $rm->rm_number }}</td>
                     <td>{{ $rm->rm_type }}</td>
-                    <td>{{ $rm->rm_availability }}</td>
+
+
+                    @if( $rm->rm_availability == env('AVAILABLE'))
+                    <td>AVAILABLE</td>
+                    @endif
+                    @if( $rm->rm_availability == env('UNAVAILABLE'))
+                    <td>UNAVAILABLE</td>
+                    @endif
 
                     <!-- we will also add show, edit, and delete buttons -->
                     <td>

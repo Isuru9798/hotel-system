@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\bill\RoomBillController;
+use App\Http\Controllers\bill\TaxiBillController;
 use App\Http\Controllers\checkIn\CheckInController;
 use App\Http\Controllers\mainAdmin\MainAdminController;
 use App\Http\Controllers\restaurant\ItemsController;
@@ -58,7 +60,16 @@ Route::prefix('main-admin')->group(function () {
 
 
         // room bills
-        Route::get('items', [ItemsController::class, 'index'])->name('items');
-        Route::post('add-item', [ItemsController::class, 'store'])->name('item.add');
+        Route::get('room-bills', [RoomBillController::class, 'index'])->name('room-bills');
+        Route::post('get-data-by-room-id', [RoomBillController::class, 'getDataByRoom'])->name('room-bills.getByRoom');
+        Route::post('add-room-bill', [RoomBillController::class, 'store'])->name('room-bill.add');
+        Route::get('cancel-room-bill/{id}', [RoomBillController::class, 'cancel'])->name('room-bill.cancel');
+
+
+        // taxi bills
+        Route::get('taxi-bills', [TaxiBillController::class, 'index'])->name('taxi-bills');
+        // Route::post('get-data-by-room-id', [RoomBillController::class, 'getDataByRoom'])->name('room-bills.getByRoom');
+        // Route::post('add-room-bill', [RoomBillController::class, 'store'])->name('room-bill.add');
+        // Route::get('cancel-room-bill/{id}', [RoomBillController::class, 'cancel'])->name('room-bill.cancel');
     });
 });

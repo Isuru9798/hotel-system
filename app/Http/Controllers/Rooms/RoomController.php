@@ -19,7 +19,7 @@ class RoomController extends Controller
         Rooms::create([
             'rm_number' => $request->rm_number,
             'rm_type' => $request->rm_type,
-            'rm_availability' => 1,
+            'rm_availability' => env('AVAILABLE'),
         ]);
         return redirect()->route('rooms');
     }
