@@ -48,6 +48,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="{{ route('restaurant-bills') }}">
+                <i class="typcn typcn-device-desktop menu-icon"></i>
+                <span class="menu-title">Restaurant Bills</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="{{ route('taxi-bills') }}">
                 <i class="typcn typcn-device-desktop menu-icon"></i>
                 <span class="menu-title">Taxi Bills</span>

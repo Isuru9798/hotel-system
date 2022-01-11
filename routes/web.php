@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\bill\LaundryBillController;
+use App\Http\Controllers\bill\RestaurantBillController;
 use App\Http\Controllers\bill\RoomBillController;
 use App\Http\Controllers\bill\TaxiBillController;
 use App\Http\Controllers\checkIn\CheckInController;
@@ -52,7 +53,7 @@ Route::prefix('main-admin')->group(function () {
         Route::post('add-item', [ItemsController::class, 'store'])->name('item.add');
         Route::get('get-item/{id}', [ItemsController::class, 'getById'])->name('item.getById');
         Route::post('update-item/{id}', [ItemsController::class, 'update'])->name('item.update');
-        Route::post('delete-item/{id}', [ItemsController::class, 'delete'])->name('item.delete');
+        Route::get('delete-item/{id}', [ItemsController::class, 'delete'])->name('item.delete');
 
         // check in
         Route::get('check-in', [CheckInController::class, 'index'])->name('checkIn');
@@ -78,6 +79,12 @@ Route::prefix('main-admin')->group(function () {
 
         // laundry bills
         Route::get('laundry-bills', [LaundryBillController::class, 'index'])->name('laundry-bills');
+        // Route::post('get-data-by-room-id', [RoomBillController::class, 'getDataByRoom'])->name('room-bills.getByRoom');
+        Route::post('add-laundry-bill', [LaundryBillController::class, 'store'])->name('laundry-bill.add');
+        Route::get('cancel-laundry-bill/{id}', [LaundryBillController::class, 'cancel'])->name('laundry-bill.cancel');
+
+        // restaurant bills
+        Route::get('restaurant-bills', [RestaurantBillController::class, 'index'])->name('restaurant-bills');
         // Route::post('get-data-by-room-id', [RoomBillController::class, 'getDataByRoom'])->name('room-bills.getByRoom');
         Route::post('add-laundry-bill', [LaundryBillController::class, 'store'])->name('laundry-bill.add');
         Route::get('cancel-laundry-bill/{id}', [LaundryBillController::class, 'cancel'])->name('laundry-bill.cancel');

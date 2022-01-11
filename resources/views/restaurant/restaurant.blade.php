@@ -63,7 +63,7 @@
     <input type="text" name="itm_item_name" id="itm_item_name">
     <br>
     image
-    <!-- <input type="file" name="itm_img" id="itm_img"> -->
+    <input type="hidden" name="itm_img" id="itm_img">
     <input type="file" name="image" class="image">
     <br>
     description
@@ -80,6 +80,35 @@
     <br>
     <button type="submit">submit</button>
 </form>
+
+<div class="row">
+    <table>
+        <tr>
+            <th>itm_img</th>
+            <th>itm_item_name</th>
+            <th>itm_item_code</th>
+            <th>itm_description</th>
+            <th>itm_category</th>
+            <th>itm_item_price</th>
+            <th>action</th>
+        </tr>
+        @foreach($items as $item)
+        <tr>
+            <td>
+                <img src="{{ asset('upload/'.$item->itm_img) }}" alt="" srcset="" style="width: 40px;">
+            </td>
+            <td>{{$item->itm_item_name }}</td>
+            <td>{{$item->itm_item_code }}</td>
+            <td>{{$item->itm_description }}</td>
+            <td>{{$item->itm_category }}</td>
+            <td>{{$item->itm_item_price }}</td>
+            <td>
+                <a href="{{ route('item.delete',$item->id) }}">delete</a>
+            </td>
+        </tr>
+        @endforeach
+    </table>
+</div>
 
 @endsection
 
@@ -144,6 +173,8 @@
                     },
                     success: function(data) {
                         console.log(data);
+                        $('#image').val("");
+                        $('#itm_img').val(data.image);
                         $modal.modal('hide');
                         alert("Crop image successfully uploaded");
                     }

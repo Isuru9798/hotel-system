@@ -33,25 +33,22 @@ class ItemsController extends Controller
     function store(Request $request)
     {
 
-
-
-        // Items::create([
-        //     'itm_img' => $request->itm_img,
-        //     'itm_description' => $request->itm_description,
-        //     'itm_item_code' => $request->itm_item_code,
-        //     'itm_category' => $request->itm_category,
-        //     'itm_item_name' => $request->itm_item_name,
-        //     'itm_item_price' => $request->itm_item_price,
-        // ]);
-        // $items = Items::all();
-        // return redirect()->route('items');
+        Items::create([
+            'itm_img' => $request->itm_img,
+            'itm_description' => $request->itm_description,
+            'itm_item_code' => $request->itm_item_code,
+            'itm_category' => $request->itm_category,
+            'itm_item_name' => $request->itm_item_name,
+            'itm_item_price' => $request->itm_item_price,
+        ]);
+        return redirect()->route('items');
     }
-    function getRoomById($id)
+    function getById($id)
     {
         $item = Items::find($id);
         return view('items.items', ['item' => $item]);
     }
-    function updateRoom(Request $request)
+    function update(Request $request)
     {
         Items::where('id', $request->id)
             ->update([
@@ -59,13 +56,11 @@ class ItemsController extends Controller
                 'rm_type' => $request->rm_type,
                 'rm_availability' => $request->rm_availability,
             ]);
-        $items = Items::all();
-        return view('items.items', ['items' => $items]);
+        return redirect()->route('items');
     }
-    function deleteRoom($id)
+    function delete($id)
     {
         Items::destroy($id);
-        $items = Items::all();
-        return view('items.items', ['items' => $items]);
+        return redirect()->route('items');
     }
 }
