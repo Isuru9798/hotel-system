@@ -5,6 +5,7 @@ use App\Http\Controllers\bill\RoomBillController;
 use App\Http\Controllers\bill\TaxiBillController;
 use App\Http\Controllers\checkIn\CheckInController;
 use App\Http\Controllers\mainAdmin\MainAdminController;
+use App\Http\Controllers\restaurant\ItemController;
 use App\Http\Controllers\restaurant\ItemsController;
 use App\Http\Controllers\rooms\RoomController;
 use Illuminate\Support\Facades\Auth;
@@ -47,6 +48,7 @@ Route::prefix('main-admin')->group(function () {
 
         // resturent items
         Route::get('items', [ItemsController::class, 'index'])->name('items');
+        Route::post('crop-image-upload', [ItemsController::class, 'img'])->name('img');
         Route::post('add-item', [ItemsController::class, 'store'])->name('item.add');
         Route::get('get-item/{id}', [ItemsController::class, 'getById'])->name('item.getById');
         Route::post('update-item/{id}', [ItemsController::class, 'update'])->name('item.update');

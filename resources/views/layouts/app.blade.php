@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
-@include('layouts.header')
+<head>
+    @include('layouts.header')
+    @yield('css')
+</head>
 
 <body>
     <div class="container-scroller">
