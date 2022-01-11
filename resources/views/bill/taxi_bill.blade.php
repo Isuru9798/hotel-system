@@ -3,7 +3,8 @@
 @section('content')
 <div class="card">
     <div class="card-body">
-        <form>
+        <form action="{{ route('taxi-bill.add') }}" method="post">
+            @csrf
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputEmail4">Room Id</label>
@@ -20,62 +21,94 @@
             </div>
             <div class="form-row ">
                 <div class="form-group col-md-6">
-                    <label for="inputAddress">Address</label>
-                    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                    <label for="inputAddress">Date</label>
+                    <input type="date" class="form-control" name="tx_issue_date" placeholder="dd/mm/yyyy">
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="inputAddress2">Address 2</label>
-                    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+                    <label for="inputAddress2">Destination</label>
+                    <input type="text" class="form-control" id="tx_destination" name="tx_destination" placeholder="Destination">
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="inputCity">City</label>
-                    <input type="text" class="form-control" id="inputCity">
+                    <label for="inputCity">Vehicle Number</label>
+                    <input type="text" class="form-control" id="tx_vehicle_num" name="tx_vehicle_num" placeholder="BDB - 2244">
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="inputState">State</label>
-                    <select id="inputState" class="form-control">
-                        <option selected>Choose...</option>
-                        <option>...</option>
-                    </select>
+                    <label for="inputState">Number of Dayes</label>
+                    <input type="text" class="form-control" id="tx_num_of_days" name="tx_num_of_days" placeholder="1">
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="inputZip">Zip</label>
-                    <input type="text" class="form-control" id="inputZip">
+                    <label for="inputZip">Amount</label>
+                    <input type="text" class="form-control" id="tx_amount" name="tx_amount" placeholder="Amount">
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Sign in</button>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputAddress2">Tax Amount</label>
+                    <input type="text" class="form-control" id="tx_tax" name="tx_tax" placeholder="Taxt Amount">
+                </div>
+            </div>
+            <input type="hidden" id="checked_rooms_id" name="checked_rooms_id" value="">
+
+            <button type="submit" class="btn btn-primary">Save changes</button>
         </form>
     </div>
 </div>
-<div class="row">
-    <form action="{{ route('taxi-bill.add') }}" method="post">
-        @csrf
-        <select id="roomSelect" onclick="getRoomData()">
-            @foreach($rooms as $room)
-            <option value="{{ $room->id }}">{{ $room->rm_number }}</option>
-            @endforeach
-        </select>
-        <input type="text" name="guest" id="guest" readonly>
-        <input type="date" name="tx_issue_date" placeholder="tx_issue_date">
 
-        <input type="text" placeholder="tx_destination" id="tx_destination" name="tx_destination">
-        <input type="text" placeholder="tx_vehicle_num" id="tx_vehicle_num" name="tx_vehicle_num">
-        <input type="text" placeholder="tx_num_of_days" id="tx_num_of_days" name="tx_num_of_days">
-        <input type="text" placeholder="tx_amount" id="tx_amount" name="tx_amount">
-        <input type="text" placeholder="tx_tax" id="tx_tax" name="tx_tax">
-        <input type="hidden" id="checked_rooms_id" name="checked_rooms_id" value="">
-        <button type="submit" class="btn btn-primary">Save changes</button>
-    </form>
+<div class="card">
+    <div class="card-body">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Room Number</th>
+                    <th>Destination</th>
+                    <th>Number of Dayes</th>
+                    <th>Vehicle Number</th>
+                    <th>Amount</th>
+                    <th>Tax</th>
+                    <th>Date</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($taxi_bills as $taxi_bill)
+                <tr>
+                    <td>{{ $taxi_bill->rm_number }}</td>
+                    <td>{{ $taxi_bill->tx_destination }}</td>
+                    <td>{{ $taxi_bill->tx_num_of_days }}</td>
+                    <td>{{ $taxi_bill->tx_vehicle_num }}</td>
+                    <td>{{ $taxi_bill->tx_amount }}</td>
+                    <td>{{ $taxi_bill->tx_tax }}</td>
+                    <td>{{ $taxi_bill->tx_issue_date }}</td>
+                    <td>{{ $taxi_bill->tx_amount + $taxi_bill->tx_tax }}</td>
+                    @if( $taxi_bill->tx_status == env('PAID'))
+                    <td>Paid</td>
+                    @endif
+                    @if( $taxi_bill->tx_status == env('UNPAID'))
+                    <td>Un Paid</td>
+                    @endif
+                    @if( $taxi_bill->tx_status == env('CANCELED'))
+                    <td>Canceled</td>
+                    @endif
+                    <td>
+                        <a href="{{ route('taxi-bill.cancel',$taxi_bill->taxi_id) }}">Cancel</a>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>
-<div class="row">
+<!-- <div class="row">
     <table>
         <tr>
             <th>Room Number</th>
-            <th>tx_destination</th>
-            <th>tx_num_of_days</th>
+            <th>Destination</th>
+            <th>Number Of Dayes</th>
             <th>tx_vehicle_num</th>
             <th>tx_amount</th>
             <th>tx_tax</th>
@@ -109,7 +142,7 @@
         </tr>
         @endforeach
     </table>
-</div>
+</div> -->
 @endsection
 
 @section('js')
