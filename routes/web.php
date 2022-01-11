@@ -86,7 +86,7 @@ Route::prefix('main-admin')->group(function () {
         // restaurant bills
         Route::get('restaurant-bills', [RestaurantBillController::class, 'index'])->name('restaurant-bills');
         // Route::post('get-data-by-room-id', [RoomBillController::class, 'getDataByRoom'])->name('room-bills.getByRoom');
-        Route::post('add-laundry-bill', [LaundryBillController::class, 'store'])->name('laundry-bill.add');
-        Route::get('cancel-laundry-bill/{id}', [LaundryBillController::class, 'cancel'])->name('laundry-bill.cancel');
+        Route::post('add-restaurant-bill', [RestaurantBillController::class, 'store'])->name('restaurant-bill.add');
+        Route::get('cancel-restaurant-bill/{id}', [RestaurantBillController::class, 'cancel'])->name('restaurant-bill.cancel');
     });
 });
