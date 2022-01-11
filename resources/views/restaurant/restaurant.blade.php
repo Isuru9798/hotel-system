@@ -27,11 +27,53 @@
 
 @section('content')
 
+<div class="card">
+    <div class="card-body">
+        <form action="{{ route('item.add') }}" method="post">
+            @csrf
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Name</label>
+                    <input type="text" class="form-control" name="itm_item_name" id="itm_item_name" placeholder="Jone Doe">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Image</label>
+                    <input type="hidden" name="itm_img" id="itm_img">
+                    <input type="file" class="form-control-file image" name="image">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputAddress">Discription</label>
+                    <textarea class="form-control" name="itm_description" id="itm_description" rows="3" placeholder="Discription"></textarea>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputAddress2">Item Code</label>
+                    <input type="text" class="form-control" name="itm_item_code" id="itm_item_code" placeholder="Item Code">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputCity">Item Category</label>
+                    <input type="text" class="form-control" name="itm_category" id="itm_category" placeholder="Item Category">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputState">Price</label>
+                    <input type="text" class="form-control" name="itm_item_price" id="itm_item_price" placeholder="Price">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalLabel">Laravel Cropper Js - Crop Image Before Upload - Tutsmake.com</h5>
+                <h5 class="modal-title" id="modalLabel">Crop Image</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -57,7 +99,7 @@
 </div>
 
 
-<form action="{{ route('item.add') }}" method="post">
+<!-- <form action="{{ route('item.add') }}" method="post">
     @csrf
     name
     <input type="text" name="itm_item_name" id="itm_item_name">
@@ -79,9 +121,45 @@
     <input type="text" name="itm_item_price" id="itm_item_price">
     <br>
     <button type="submit">submit</button>
-</form>
+</form> -->
 
-<div class="row">
+<div class="card">
+    <div class="card-body">
+        <table class="table table-striped table-bordered table-hover" id="emp_list">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Item Name</th>
+                    <th>Item Code</th>
+                    <th>Description</th>
+                    <th>Item Category</th>
+                    <th>Item Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($items as $item)
+                <tr>
+                    <td>
+                        <img src="{{ asset('upload/'.$item->itm_img) }}" alt="" srcset="" style="width: 40px;">
+                    </td>
+                    <td>{{$item->itm_item_name }}</td>
+                    <td>{{$item->itm_item_code }}</td>
+                    <td>{{$item->itm_description }}</td>
+                    <td>{{$item->itm_category }}</td>
+                    <td>{{$item->itm_item_price }}</td>
+                    <td>
+                        <a href="{{ route('item.delete',$item->id) }}">delete</a>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!-- <div class="row">
     <table>
         <tr>
             <th>itm_img</th>
@@ -108,7 +186,7 @@
         </tr>
         @endforeach
     </table>
-</div>
+</div> -->
 
 @endsection
 
