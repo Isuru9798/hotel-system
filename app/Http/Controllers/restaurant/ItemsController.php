@@ -32,6 +32,20 @@ class ItemsController extends Controller
     }
     function store(Request $request)
     {
+        $messages = [
+            'required' => 'this field is requer',
+        ];
+        $validateData = $request->validate(
+            [
+                'itm_img' => 'required|string',
+                'itm_description' => 'required|string',
+                'itm_item_code' => 'required|string',
+                'itm_category' => 'required|string',
+                'itm_item_name' => 'required|string',
+                'itm_item_price' => 'required|numeric',
+            ],
+            $messages
+        );
 
         Items::create([
             'itm_img' => $request->itm_img,
