@@ -6,6 +6,7 @@ use App\Http\Controllers\bill\RoomBillController;
 use App\Http\Controllers\bill\TaxiBillController;
 use App\Http\Controllers\checkIn\CheckInController;
 use App\Http\Controllers\mainAdmin\MainAdminController;
+use App\Http\Controllers\QR\QRController;
 use App\Http\Controllers\restaurant\ItemController;
 use App\Http\Controllers\restaurant\ItemsController;
 use App\Http\Controllers\rooms\RoomController;
@@ -87,6 +88,11 @@ Route::prefix('main-admin')->group(function () {
         Route::get('restaurant-bills', [RestaurantBillController::class, 'index'])->name('restaurant-bills');
         // Route::post('get-data-by-room-id', [RoomBillController::class, 'getDataByRoom'])->name('room-bills.getByRoom');
         Route::post('add-restaurant-bill', [RestaurantBillController::class, 'store'])->name('restaurant-bill.add');
+        Route::post('get-restaurant-item-data', [RestaurantBillController::class, 'getItemData'])->name('restaurant-bills.getItem-data');
         Route::get('cancel-restaurant-bill/{id}', [RestaurantBillController::class, 'cancel'])->name('restaurant-bill.cancel');
+
+
+        // order with qr
     });
 });
+Route::get('item-list-rooms/{id}', [QRController::class, 'index'])->name('qr-code.item-list');

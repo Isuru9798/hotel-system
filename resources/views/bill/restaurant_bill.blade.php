@@ -10,19 +10,28 @@
             @endforeach
         </select>
         <input type="text" name="guest" id="guest" readonly>
-
-        <input type="text" placeholder="or_quantity" id="or_quantity" name="or_quantity">
-        <input type="text" placeholder="or_tot" id="or_tot" name="or_tot">
-        <input type="text" placeholder="or_service_chrge" id="or_service_chrge" name="or_service_chrge">
-        <select>
-            @foreach($rooms as $room)
-            <option value="{{ $room->id }}">{{ $room->rm_number }}</option>
+        <br>
+        item code
+        <select name="items_id" id="items_id" onclick="getItemData()">
+            @foreach($items as $item)
+            <option value="{{ $item->id }}">{{ $item->itm_item_code }}</option>
             @endforeach
         </select>
+        <input type="hidden" name="itm_item_price" id="itm_item_price" value="0">
+        <br>
+        quentity
+        <input type="text" placeholder="or_quantity" id="or_quantity" name="or_quantity" onkeyup="calTot()" value="0">
+        <br>
+        service charge
+        <input type="text" placeholder="or_service_chrge" id="or_service_chrge" name="or_service_chrge" onkeyup="calTot()" value="0">
+        <br>
+        total
+        <input type="text" placeholder="or_tot" id="or_tot" name="or_tot" readonly value="0">
+        <br>
         <input type="hidden" id="checked_rooms_id" name="checked_rooms_id" value="">
         <button type="submit" class="btn btn-primary">Save changes</button>
     </form>
-</div>
+</div> {!! QrCode::size(300)->generate('{'RemoteStack'}') !!}
 <div class="row">
     <table>
         <tr>
@@ -57,7 +66,7 @@
             <td>Canceled</td>
             @endif
             <td>
-                <a href="{{ route('laundry-bill.cancel',$restaurant_bill->orders_id) }}">Cancel</a>
+                <a href="{{ route('restaurant-bill.cancel',$restaurant_bill->orders_id) }}">Cancel</a>
             </td>
         </tr>
         @endforeach
@@ -86,10 +95,38 @@
     }
 
     function calCost() {
-        $d_rate = $('#rb_doller_rate').val();
-        $d_amount = $('#rb_amount_doller').val();
-        $lkr_cost = $d_rate * $d_amount;
+        let d_rate = $('#rb_doller_rate').val();
+        let d_amount = $('#rb_amount_doller').val();
+        let lkr_cost = $d_rate * $d_amount;
         $('#rb_cost').val($lkr_cost);
+    }
+
+    function getItemData() {
+        let itemsId = $('#items_id').val();
+        let _token = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            type: 'POST',
+            url: "{{ route('restaurant-bills.getItem-data') }}",
+            data: {
+                id: itemsId,
+                _token: _token
+            },
+            success: function(data) {
+                $('#itm_item_price').val(data.itm_item_price);
+                console.log(data);
+            }
+        });
+    }
+
+    function calTot() {
+        let itm_item_price = parseInt($('#itm_item_price').val());
+        let or_quantity = parseInt($('#or_quantity').val());
+        let or_service_chrge = parseInt($('#or_service_chrge').val());
+
+        $('#or_tot').val((itm_item_price * or_quantity) + or_service_chrge);
+
+
+
     }
 </script>
 @endsection
