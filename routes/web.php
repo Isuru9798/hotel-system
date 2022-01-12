@@ -5,6 +5,7 @@ use App\Http\Controllers\bill\RestaurantBillController;
 use App\Http\Controllers\bill\RoomBillController;
 use App\Http\Controllers\bill\TaxiBillController;
 use App\Http\Controllers\checkIn\CheckInController;
+use App\Http\Controllers\checkOut\CheckOutController;
 use App\Http\Controllers\mainAdmin\MainAdminController;
 use App\Http\Controllers\QR\QRController;
 use App\Http\Controllers\restaurant\ItemController;
@@ -92,7 +93,9 @@ Route::prefix('main-admin')->group(function () {
         Route::get('cancel-restaurant-bill/{id}', [RestaurantBillController::class, 'cancel'])->name('restaurant-bill.cancel');
 
 
-        // order with qr
+        // checkout
+
+        Route::get('check-out', [CheckOutController::class, 'index'])->name('checkOut');
     });
 });
 Route::get('item-list-rooms/{id}', [QRController::class, 'index'])->name('qr-code.item-list');

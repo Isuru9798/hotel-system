@@ -34,12 +34,18 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputEmail4">Name</label>
-                    <input type="text" class="form-control" name="itm_item_name" id="itm_item_name" placeholder="Jone Doe">
+                    <input type="text" class="form-control" name="itm_item_name" id="itm_item_name" placeholder="Jone Doe" value="{{ old('itm_item_name') }}">
+                    @error('itm_item_name')
+                    <p>{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword4">Image</label>
                     <input type="hidden" name="itm_img" id="itm_img">
                     <input type="file" class="form-control-file image" name="image">
+                    @error('itm_img')
+                    <code>{{ $message }}</code>
+                    @enderror
                 </div>
             </div>
             <div class="form-row">
