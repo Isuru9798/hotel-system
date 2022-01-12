@@ -1,7 +1,106 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="row">
+<div class="card">
+    <div class="card-body">
+        <form action="{{ route('restaurant-bill.add') }}" method="post">
+            @csrf
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Room Id</label>
+                    <select class="form-control" id="roomSelect" onclick="getRoomData()">
+                        @foreach($rooms as $room)
+                        <option value="{{ $room->id }}">{{ $room->rm_number }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Guest Name</label>
+                    <input type="text" class="form-control" name="guest" id="guest" placeholder="Jone Doe" readonly>
+
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputAddress">Item Code</label>
+                    <select class="form-control" name="items_id" id="items_id" onclick="getItemData()">
+                        @foreach($items as $item)
+                        <option value="{{ $item->id }}">{{ $item->itm_item_code }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <input type="hidden" name="itm_item_price" id="itm_item_price" value="0">
+                <div class="form-group col-md-6">
+                    <label for="inputAddress2">Quentity</label>
+                    <input type="text" class="form-control" id="or_quantity" name="or_quantity" onkeyup="calTot()" value="0" placeholder="Quentity">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputCity">Service charge</label>
+                    <input type="text" class="form-control" id="or_service_chrge" name="or_service_chrge" onkeyup="calTot()" value="0" placeholder="Service charge">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputState">Total</label>
+                    <input type="text" class="form-control" id="or_tot" name="or_tot" readonly value="0" placeholder="Total">
+                </div>
+            </div>
+            <input type="hidden" id="checked_rooms_id" name="checked_rooms_id" value="">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+
+<div class="card">
+    <div class="card-body">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>itm_img</th>
+                    <th>Room Number</th>
+                    <th>Item Description</th>
+                    <th>Item Code</th>
+                    <th>Item Name</th>
+                    <th>Order Total</th>
+                    <th>Order Quantity</th>
+                    <th>Order Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($restaurant_bills as $restaurant_bill)
+                <tr>
+                    <td>
+                        <img src="{{ asset('upload/'.$restaurant_bill->itm_img) }}" alt="" srcset="" style="width: 40px;">
+                    </td>
+                    <td>{{ $restaurant_bill->rm_number }}</td>
+                    <td>{{ $restaurant_bill->itm_description }}</td>
+                    <td>{{ $restaurant_bill->itm_item_code }}</td>
+                    <td>{{ $restaurant_bill->itm_item_name }}</td>
+                    <td>{{ $restaurant_bill->or_tot }}</td>
+                    <td>{{ $restaurant_bill->or_quantity }}</td>
+                    @if( $restaurant_bill->or_status == env('PAID'))
+                    <td>Paid</td>
+                    @endif
+                    @if( $restaurant_bill->or_status == env('UNPAID'))
+                    <td>Un Paid</td>
+                    @endif
+                    @if( $restaurant_bill->or_status == env('CANCELED'))
+                    <td>Canceled</td>
+                    @endif
+                    <td>
+                        <a href="{{ route('restaurant-bill.cancel',$restaurant_bill->orders_id) }}">Cancel</a>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- <div class="row">
     <form action="{{ route('restaurant-bill.add') }}" method="post">
         @csrf
         <select id="roomSelect" onclick="getRoomData()">
@@ -31,8 +130,8 @@
         <input type="hidden" id="checked_rooms_id" name="checked_rooms_id" value="">
         <button type="submit" class="btn btn-primary">Save changes</button>
     </form>
-</div> {!! QrCode::size(300)->generate('{'RemoteStack'}') !!}
-<div class="row">
+</div> -->
+<!-- <div class="row">
     <table>
         <tr>
             <th>itm_img</th>
@@ -71,7 +170,7 @@
         </tr>
         @endforeach
     </table>
-</div>
+</div> -->
 @endsection
 
 @section('js')
