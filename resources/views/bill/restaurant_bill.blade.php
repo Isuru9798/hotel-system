@@ -31,7 +31,7 @@
         <input type="hidden" id="checked_rooms_id" name="checked_rooms_id" value="">
         <button type="submit" class="btn btn-primary">Save changes</button>
     </form>
-</div> {!! QrCode::size(300)->generate('{'RemoteStack'}') !!}
+</div>
 <div class="row">
     <table>
         <tr>

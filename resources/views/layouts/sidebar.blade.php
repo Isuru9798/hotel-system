@@ -42,6 +42,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="{{ route('checkOut') }}">
+                <i class="typcn typcn-device-desktop menu-icon"></i>
+                <span class="menu-title">Check Out</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="{{ route('room-bills') }}">
                 <i class="typcn typcn-device-desktop menu-icon"></i>
                 <span class="menu-title">Room Bills</span>
