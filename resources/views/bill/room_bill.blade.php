@@ -24,11 +24,16 @@
                 <div class="form-group col-md-6">
                     <label for="inputAddress">Date</label>
                     <input type="Date" class="form-control" name="rb_issue_date" placeholder="dd/mm/yyyy">
-
+                    @error('rb_issue_date')
+                    <code>{{ $message }}</code>
+                    @enderror
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputAddress2">Doller Rate</label>
                     <input type="text" class="form-control" name="rb_doller_rate" value="0" placeholder="$ Rate">
+                    @error('rb_doller_rate')
+                    <code>{{ $message }}</code>
+                    @enderror
                 </div>
             </div>
 
@@ -36,11 +41,16 @@
                 <div class="form-group col-md-6">
                     <label for="inputCity">Amount By Doller</label>
                     <input type="text" class="form-control" name="rb_amount_doller" value="0" onkeyup="calCost()" placeholder="Amount By $">
-
+                    @error('rb_amount_doller')
+                    <code>{{ $message }}</code>
+                    @enderror
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputAddress2">Amount By LKR</label>
                     <input type="text" class="form-control" placeholder="Amount By LKR" name="rb_cost" value="0" id="rb_cost">
+                    @error('rb_cost')
+                    <code>{{ $message }}</code>
+                    @enderror
                 </div>
                 <input type="hidden" id="checked_rooms_id" name="checked_rooms_id" value="">
             </div>

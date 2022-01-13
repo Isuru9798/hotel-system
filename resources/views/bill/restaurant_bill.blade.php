@@ -17,7 +17,6 @@
                 <div class="form-group col-md-6">
                     <label for="inputPassword4">Guest Name</label>
                     <input type="text" class="form-control" name="guest" id="guest" placeholder="Jone Doe" readonly>
-
                 </div>
             </div>
             <div class="form-row">

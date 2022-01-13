@@ -44,6 +44,19 @@ class RoomBillController extends Controller
     }
     function store(Request $request)
     {
+        $messages = [
+            'required' => 'This Field is required',
+        ];
+        $validateData = $request->validate(
+            [
+                'rb_issue_date' => 'required|string',
+                'rb_doller_rate' => 'required|numeric',
+                'rb_amount_doller' => 'required|numeric',
+                'rb_cost' => 'required|numeric',
+            ],
+            $messages
+        );
+
         RoomBills::create([
             'rb_issue_date' => date('Y-m-d', strtotime($request->rb_issue_date)),
             'rb_doller_rate' => $request->rb_doller_rate,

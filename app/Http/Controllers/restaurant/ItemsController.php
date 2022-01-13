@@ -33,7 +33,7 @@ class ItemsController extends Controller
     function store(Request $request)
     {
         $messages = [
-            'required' => 'this field is requer',
+            'required' => 'This Field is required',
         ];
         $validateData = $request->validate(
             [

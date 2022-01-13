@@ -22,32 +22,47 @@
             <div class="form-row ">
                 <div class="form-group col-md-6">
                     <label for="inputAddress">Date</label>
-                    <input type="date" class="form-control" name="tx_issue_date" placeholder="dd/mm/yyyy">
+                    <input type="date" class="form-control" name="tx_issue_date" placeholder="dd/mm/yyyy" value="{{ old('tx_issue_date') }}">
+                    @error('tx_issue_date')
+                    <code>{{ $message }}</code>
+                    @enderror
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputAddress2">Destination</label>
-                    <input type="text" class="form-control" id="tx_destination" name="tx_destination" placeholder="Destination">
+                    <input type="text" class="form-control" id="tx_destination" name="tx_destination" placeholder="Destination" value="{{ old('tx_destination') }}">
+                    @error('tx_destination')
+                    <code>{{ $message }}</code>
+                    @enderror
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputCity">Vehicle Number</label>
-                    <input type="text" class="form-control" id="tx_vehicle_num" name="tx_vehicle_num" placeholder="BDB - 2244">
+                    <input type="text" class="form-control" id="tx_vehicle_num" name="tx_vehicle_num" placeholder="BDB - 2244" value="{{ old('tx_vehicle_num') }}">
+                    @error('tx_vehicle_num')
+                    <code>{{ $message }}</code>
+                    @enderror
                 </div>
                 <div class="form-group col-md-4">
                     <label for="inputState">Number of Dayes</label>
-                    <input type="text" class="form-control" id="tx_num_of_days" name="tx_num_of_days" placeholder="1">
+                    <input type="text" class="form-control" id="tx_num_of_days" name="tx_num_of_days" placeholder="1" value="{{ old('tx_num_of_days') }}">
+                    @error('tx_num_of_days')
+                    <code>{{ $message }}</code>
+                    @enderror
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="inputZip">Amount</label>
-                    <input type="text" class="form-control" id="tx_amount" name="tx_amount" placeholder="Amount">
+                <label for="inputAddress2">Tax Amount</label>
+                    <input type="text" class="form-control" id="tx_tax" name="tx_tax" placeholder="Taxt Amount">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="inputAddress2">Tax Amount</label>
-                    <input type="text" class="form-control" id="tx_tax" name="tx_tax" placeholder="Taxt Amount">
+                    <label for="inputZip">Amount</label>
+                    <input type="text" class="form-control" id="tx_amount" name="tx_amount" placeholder="Amount" value="{{ old('tx_amount') }}">
+                    @error('tx_amount')
+                    <code>{{ $message }}</code>
+                    @enderror
                 </div>
             </div>
             <input type="hidden" id="checked_rooms_id" name="checked_rooms_id" value="">

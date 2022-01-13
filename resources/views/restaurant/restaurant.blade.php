@@ -36,7 +36,7 @@
                     <label for="inputEmail4">Name</label>
                     <input type="text" class="form-control" name="itm_item_name" id="itm_item_name" placeholder="Jone Doe" value="{{ old('itm_item_name') }}">
                     @error('itm_item_name')
-                    <p>{{ $message }}</p>
+                    <code>{{ $message }}</code>
                     @enderror
                 </div>
                 <div class="form-group col-md-6">
@@ -51,22 +51,34 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputAddress">Discription</label>
-                    <textarea class="form-control" name="itm_description" id="itm_description" rows="3" placeholder="Discription"></textarea>
+                    <textarea class="form-control" name="itm_description" id="itm_description" rows="3" placeholder="Discription" value="{{ old('itm_description') }}"></textarea>
+                    @error('itm_description')
+                    <code>{{ $message }}</code>
+                    @enderror
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputAddress2">Item Code</label>
-                    <input type="text" class="form-control" name="itm_item_code" id="itm_item_code" placeholder="Item Code">
+                    <input type="text" class="form-control" name="itm_item_code" id="itm_item_code" placeholder="Item Code" value="{{ old('itm_item_code') }}">
+                    @error('itm_item_code')
+                    <code>{{ $message }}</code>
+                    @enderror
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputCity">Item Category</label>
-                    <input type="text" class="form-control" name="itm_category" id="itm_category" placeholder="Item Category">
+                    <input type="text" class="form-control" name="itm_category" id="itm_category" placeholder="Item Category" value="{{ old('itm_category') }}">
+                    @error('itm_category')
+                    <code>{{ $message }}</code>
+                    @enderror
                 </div>
                 <div class="form-group col-md-4">
                     <label for="inputState">Price</label>
-                    <input type="text" class="form-control" name="itm_item_price" id="itm_item_price" placeholder="Price">
+                    <input type="text" class="form-control" name="itm_item_price" id="itm_item_price" placeholder="Price" value="{{ old('itm_item_price') }}">
+                    @error('itm_item_price')
+                    <code>{{ $message }}</code>
+                    @enderror
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Save Changes</button>

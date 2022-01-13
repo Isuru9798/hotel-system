@@ -34,6 +34,21 @@ class TaxiBillController extends Controller
 
     function store(Request $request)
     {
+        $messages = [
+            'required' => 'This Field is required',
+        ];
+        $validateData = $request->validate(
+            [
+                'tx_destination' => 'required|string',
+                'tx_vehicle_num' => 'required|string',
+                'tx_status' => 'required|string',
+                'tx_num_of_days' => 'required|string',
+                'tx_issue_date' => 'required|string',
+                'tx_amount' => 'required|numeric',
+            ],
+            $messages
+        );
+
         Taxis::create([
             'tx_destination' => $request->tx_destination,
             'tx_vehicle_num' => $request->tx_vehicle_num,
