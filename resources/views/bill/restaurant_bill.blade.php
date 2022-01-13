@@ -223,8 +223,6 @@
 
         $('#or_tot').val((itm_item_price * or_quantity) + or_service_chrge);
 
-
-
     }
 </script>
 @endsection

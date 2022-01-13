@@ -96,6 +96,7 @@ Route::prefix('main-admin')->group(function () {
         // checkout
 
         Route::get('check-out', [CheckOutController::class, 'index'])->name('checkOut');
+        Route::post('check-out-room-bills', [CheckOutController::class, 'getBills'])->name('checkOut.bills');
     });
 });
 Route::get('item-list-rooms/{id}', [QRController::class, 'index'])->name('qr-code.item-list');
