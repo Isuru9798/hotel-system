@@ -37,7 +37,15 @@ class RestaurantBillController extends Controller
     }
     function store(Request $request)
     {
-        dd($request->request);
+        Orders::create([
+            'or_quantity' => $request->or_quantity,
+            'or_status' => env('UNPAID'),
+            'or_tot' => $request->or_tot,
+            'or_service_chrge' => $request->or_service_chrge,
+            'checked_rooms_id' => $request->checked_rooms_id,
+            'items_id' => $request->items_id,
+        ]);
+        return redirect()->route('restaurant-bills');
     }
     function cancel($id)
     {
