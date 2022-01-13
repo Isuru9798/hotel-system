@@ -16,6 +16,17 @@ class RoomController extends Controller
     }
     function store(Request $request)
     {
+        $messages = [
+            'required' => 'This Field is required',
+        ];
+        $validateData = $request->validate(
+            [
+                'rm_number' => 'required|string',
+                'rm_type' => 'required|string',
+            ],
+            $messages
+        );
+
         Rooms::create([
             'rm_number' => $request->rm_number,
             'rm_type' => $request->rm_type,

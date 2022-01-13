@@ -1,5 +1,18 @@
 @extends('layouts.app')
 
+@section('css')
+
+<style type="text/css">
+    .save-btn {
+        float: right;
+    }
+
+    .div-gap {
+        margin-bottom: 2em;
+    }
+</style>
+@endsection
+
 @section('content')
 <div class="card">
     <div class="card-body">
@@ -52,7 +65,7 @@
                     @enderror
                 </div>
                 <div class="form-group col-md-2">
-                <label for="inputAddress2">Tax Amount</label>
+                    <label for="inputAddress2">Tax Amount</label>
                     <input type="text" class="form-control" id="tx_tax" name="tx_tax" placeholder="Taxt Amount">
                 </div>
             </div>
@@ -67,11 +80,11 @@
             </div>
             <input type="hidden" id="checked_rooms_id" name="checked_rooms_id" value="">
 
-            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="submit" class="btn btn-primary save-btn">Save changes</button>
         </form>
     </div>
 </div>
-
+<div class="div-gap"></div>
 <div class="card">
     <div class="card-body">
         <table class="table table-striped table-bordered table-hover">

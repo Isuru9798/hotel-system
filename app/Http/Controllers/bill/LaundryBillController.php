@@ -32,6 +32,19 @@ class LaundryBillController extends Controller
 
     function store(Request $request)
     {
+        $messages = [
+            'required' => 'This Field is required',
+        ];
+        $validateData = $request->validate(
+            [
+                'lon_issue_date' => 'required|string',
+                'lon_item' => 'required|string',
+                'lon_amount' => 'required|numeric',
+                'lon_quantity' => 'required|numeric',
+            ],
+            $messages
+        );
+
         Laundries::create([
             'lon_issue_date' => date('Y-m-d', strtotime($request->lon_issue_date)),
             'lon_status' => env('UNPAID'),

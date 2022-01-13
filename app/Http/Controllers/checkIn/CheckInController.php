@@ -64,6 +64,25 @@ class CheckInController extends Controller
     }
     function store(Request $request)
     {
+        $messages = [
+            'required' => 'This Field is required',
+        ];
+        $validateData = $request->validate(
+            [
+                'gs_name' => 'required|string',
+                'gs_address' => 'required|string',
+                'gs_gender' => 'required|string',
+                'gs_passport_or_id' => 'required|string',
+                'gs_mobile' => 'required|string',
+                'gs_country' => 'required|string',
+                'ci_in_date' => 'required|string',
+                'ci_out_date' => 'required|string',
+                'ci_nights' => 'required|numeric',
+                'ci_adults' => 'required|numeric',
+                'ci_child' => 'required|numeric',
+            ],
+            $messages
+        );
 
         $guest = Guests::create([
             'gs_name' => $request->gs_name,

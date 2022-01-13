@@ -37,6 +37,17 @@ class RestaurantBillController extends Controller
     }
     function store(Request $request)
     {
+        $messages = [
+            'required' => 'This Field is required',
+        ];
+        $validateData = $request->validate(
+            [
+                'or_quantity' => 'required|numeric',
+                'or_service_chrge' => 'required|numeric',
+            ],
+            $messages
+        );
+
         Orders::create([
             'or_quantity' => $request->or_quantity,
             'or_status' => env('UNPAID'),

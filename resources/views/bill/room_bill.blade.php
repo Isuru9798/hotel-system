@@ -1,5 +1,18 @@
 @extends('layouts.app')
 
+@section('css')
+
+<style type="text/css">
+    .save-btn {
+        float: right;
+    }
+
+    .div-gap {
+        margin-bottom: 2em;
+    }
+</style>
+@endsection
+
 @section('content')
 <div class="card">
     <div class="card-body">
@@ -30,7 +43,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputAddress2">Doller Rate</label>
-                    <input type="text" class="form-control" name="rb_doller_rate" value="0" placeholder="$ Rate">
+                    <input type="text" class="form-control" name="rb_doller_rate" placeholder="$ Rate" value="{{ old('rb_doller_rate') }}">
                     @error('rb_doller_rate')
                     <code>{{ $message }}</code>
                     @enderror
@@ -40,14 +53,14 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputCity">Amount By Doller</label>
-                    <input type="text" class="form-control" name="rb_amount_doller" value="0" onkeyup="calCost()" placeholder="Amount By $">
+                    <input type="text" class="form-control" name="rb_amount_doller" onkeyup="calCost()" placeholder="Amount By $" value="{{ old('rb_amount_doller') }}">
                     @error('rb_amount_doller')
                     <code>{{ $message }}</code>
                     @enderror
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputAddress2">Amount By LKR</label>
-                    <input type="text" class="form-control" placeholder="Amount By LKR" name="rb_cost" value="0" id="rb_cost">
+                    <input type="text" class="form-control" placeholder="Amount By LKR" name="rb_cost" id="rb_cost" value="{{ old('rb_cost') }}">
                     @error('rb_cost')
                     <code>{{ $message }}</code>
                     @enderror
@@ -55,10 +68,11 @@
                 <input type="hidden" id="checked_rooms_id" name="checked_rooms_id" value="">
             </div>
 
-            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="submit" class="btn btn-primary save-btn">Save changes</button>
         </form>
     </div>
 </div>
+<div class="div-gap"></div>
 <div class="card">
     <div class="card-body">
         <table class="table table-striped table-bordered table-hover">

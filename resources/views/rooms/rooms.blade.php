@@ -1,14 +1,29 @@
 @extends('layouts.app')
 
+@section('css')
+
+<style type="text/css">
+    .save-btn {
+        float: right;
+    }
+
+    .div-gap {
+            margin-bottom: 5em;
+    }
+</style>
+@endsection
+
 @section('content')
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-+
-</button>
+
 <div class="card text-center">
     <h5 class="card-header">Rooms</h5>
     <!-- Button trigger modal -->
 
     <div class="card-body">
+        <button type="button" class="btn btn-primary save-btn" data-toggle="modal" data-target="#exampleModal">
+            +
+        </button>
+        <div class="div-gap"></div>
         <table class="table table-striped table-bordered table-hover" id="emp_list">
             <thead>
                 <tr>
@@ -41,7 +56,7 @@
                         <!-- <a class="btn btn-small btn-success" href="{{ URL::to('rooms/' . $rm->id) }}">Show</a> -->
 
                         <!-- edit this nerd (uses the edit method found at GET /nerds/{id}/edit -->
-                        <a class="btn btn-small btn-info" href="{{ URL::to('rooms/' . $rm->id . '/room.update')}}">Edit</a>
+                        <!-- <a class="btn btn-small btn-info" href="{{ URL::to('rooms/' . $rm->id . '/room.update')}}">Edit</a> -->
 
                     </td>
                 </tr>
@@ -67,15 +82,23 @@
                     @csrf
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Room Number</label>
-                        <input type="text" class="form-control" id="rm_number" name="rm_number" placeholder="Room Number">
+                        <input type="text" class="form-control" id="rm_number" name="rm_number" placeholder="Room Number" value="{{ old('rm_number') }}">
+                        @error('rm_number')
+                        <code>{{ $message }}</code>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Room Type</label>
-                        <input type="text" class="form-control" id="rm_type" name="rm_type" placeholder="Room Type">
+                        <input type="text" class="form-control" id="rm_type" name="rm_type" placeholder="Room Type" value="{{ old('rm_type') }}">
+                        @error('rm_type')
+                        <code>{{ $message }}</code>
+                        @enderror
                     </div>
                     <input type="hidden" class="form-control" value="1" id="rm_availability" name="rm_availability" placeholder="Room Type">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <div class="save-btn">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
                 </form>
 
             </div>

@@ -22,6 +22,14 @@
     .modal-lg {
         max-width: 1000px !important;
     }
+
+    .save-btn {
+        float: right;
+    }
+
+    .div-gap {
+        margin-bottom: 2em;
+    }
 </style>
 @endsection
 
@@ -81,7 +89,7 @@
                     @enderror
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <button type="submit" class="btn btn-primary save-btn">Save Changes</button>
         </form>
     </div>
 </div>
@@ -140,7 +148,7 @@
     <br>
     <button type="submit">submit</button>
 </form> -->
-
+<div class="div-gap"></div>
 <div class="card">
     <div class="card-body">
         <table class="table table-striped table-bordered table-hover" id="emp_list">

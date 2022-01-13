@@ -1,5 +1,18 @@
 @extends('layouts.app')
 
+@section('css')
+
+<style type="text/css">
+    .save-btn {
+        float: right;
+    }
+
+    .div-gap {
+        margin-bottom: 2em;
+    }
+</style>
+@endsection
+
 @section('content')
 
 <div class="card">
@@ -23,32 +36,44 @@
             <div class="form-row ">
                 <div class="form-group col-md-6">
                     <label for="inputAddress">Date</label>
-                    <input type="date" class="form-control" name="lon_issue_date" placeholder="dd/mm/yyyy">
+                    <input type="date" class="form-control" name="lon_issue_date" placeholder="dd/mm/yyyy" value="{{ old('lon_issue_date') }}">
+                    @error('lon_issue_date')
+                    <code>{{ $message }}</code>
+                    @enderror
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputAddress2">Londry Item</label>
-                    <input type="text" class="form-control" id="lon_item" name="lon_item" placeholder="Item Name">
+                    <input type="text" class="form-control" id="lon_item" name="lon_item" placeholder="Item Name" value="{{ old('lon_item') }}">
+                    @error('lon_item')
+                    <code>{{ $message }}</code>
+                    @enderror
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputCity">Quentity</label>
-                    <input type="text" class="form-control" id="lon_quantity" name="lon_quantity" placeholder="0">
+                    <input type="text" class="form-control" id="lon_quantity" name="lon_quantity" placeholder="0" value="{{ old('lon_quantity') }}">
+                    @error('lon_quantity')
+                    <code>{{ $message }}</code>
+                    @enderror
                 </div>
 
                 <div class="form-group col-md-2">
                     <label for="inputZip">Amount</label>
-                    <input type="text" class="form-control" id="lon_amount" name="lon_amount" placeholder="Amount">
+                    <input type="text" class="form-control" id="lon_amount" name="lon_amount" placeholder="Amount" value="{{ old('lon_amount') }}">
+                    @error('lon_amount')
+                    <code>{{ $message }}</code>
+                    @enderror
                 </div>
             </div>
             <input type="hidden" id="checked_rooms_id" name="checked_rooms_id" value="">
 
-            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="submit" class="btn btn-primary save-btn">Save changes</button>
         </form>
     </div>
 </div>
-
+<div class="div-gap"></div>
 <div class="card">
     <div class="card-body">
         <table class="table table-striped table-bordered table-hover">

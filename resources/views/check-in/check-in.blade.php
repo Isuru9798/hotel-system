@@ -1,24 +1,39 @@
 @extends('layouts.app')
 
+@section('css')
+
+<style type="text/css">
+    .save-btn {
+        float: right;
+    }
+
+    .div-gap {
+        margin-bottom: 5em;
+    }
+</style>
+@endsection
+
 @section('content')
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-    +
-</button>
+
 <!-- Data Table -->
 <div class="card text-center">
     <h5 class="card-header">Rooms</h5>
     <!-- Button trigger modal -->
 
     <div class="card-body">
+        <button type="button" class="btn btn-primary save-btn" data-toggle="modal" data-target="#exampleModal">
+            +
+        </button>
+        <div class="div-gap"></div>
         <table class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Guest Name</th>
                     <th>Check In Date</th>
-                    <th>Check Oyt Date</th>
+                    <th>Check Out Date</th>
                     <th>Nights</th>
                     <th>Adults</th>
                     <th>Child</th>
@@ -27,7 +42,7 @@
             </thead>
             <tbody>
                 @foreach($checkIns as $key => $check)
-                
+
                 <tr>
                     <td>{{ $key }}</td>
                     <td>{{$check['guest']['gs_name']}}</td>
@@ -72,7 +87,10 @@
                             <div class="form-group">
                                 <label class="col-sm-3 col-form-label">Passport Id</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="gs_passport_or_id" placeholder="167834899" />
+                                    <input type="text" class="form-control" name="gs_passport_or_id" placeholder="167834899" value="{{ old('gs_passport_or_id') }}" />
+                                    @error('gs_passport_or_id')
+                                    <code>{{ $message }}</code>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -80,7 +98,10 @@
                             <div class="form-group">
                                 <label class="col-sm-3 col-form-label">Full Name</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="gs_name" placeholder="Jone Doe" />
+                                    <input type="text" class="form-control" name="gs_name" placeholder="Jone Doe" value="{{ old('gs_name') }}" />
+                                    @error('gs_name')
+                                    <code>{{ $message }}</code>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -91,7 +112,10 @@
                             <div class="form-group">
                                 <label class="col-sm-3 col-form-label">Mobile Number</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="gs_mobile" placeholder="+9477 40 70 378" />
+                                    <input type="text" class="form-control" name="gs_mobile" placeholder="+9477 40 70 378" value="{{ old('gs_mobile') }}" />
+                                    @error('gs_mobile')
+                                    <code>{{ $message }}</code>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -113,6 +137,9 @@
                                 <label class="col-sm-3 col-form-label">Check In Date</label>
                                 <div class="col-sm-9">
                                     <input type="date" class="form-control" name="ci_in_date" placeholder="dd/mm/yyyy" />
+                                    @error('ci_in_date')
+                                    <code>{{ $message }}</code>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -121,55 +148,23 @@
                                 <label class="col-sm-3 col-form-label">Check Out Date</label>
                                 <div class="col-sm-9">
                                     <input type="date" class="form-control" name="ci_out_date" placeholder="dd/mm/yyyy" />
+                                    @error('ci_out_date')
+                                    <code>{{ $message }}</code>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-sm-3 col-form-label">Category</label>
-                                <div class="col-sm-9">
-                                    <select class="form-control">
-                                        <option>Category1</option>
-                                        <option>Category2</option>
-                                        <option>Category3</option>
-                                        <option>Category4</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-sm-3 col-form-label">Membership</label>
-                                <div class="col-sm-4">
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios1" value="" checked>
-                                            Free
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-5">
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios2" value="option2">
-                                            Professional
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <!-- <p class="card-description">
-                        Address
-                    </p> -->
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-sm-3 col-form-label">Address</label>
                                 <div class="col-sm-9">
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="gs_address" placeholder="241/1,Village junction, NewYork"></textarea>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="gs_address" placeholder="241/1,Village junction, NewYork" value="{{ old('gs_address') }}"></textarea>
+                                    @error('gs_address')
+                                    <code>{{ $message }}</code>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -177,71 +172,23 @@
                             <div class="form-group">
                                 <label class="col-sm-3 col-form-label">Country</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="gs_country" placeholder="USA" />
+                                    <input type="text" class="form-control" name="gs_country" placeholder="USA" value="{{ old('gs_country') }}" />
+                                    @error('gs_country')
+                                    <code>{{ $message }}</code>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-sm-3 col-form-label">Address 1</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-sm-3 col-form-label">State</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <!-- <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-sm-3 col-form-label">Address 2</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-sm-3 col-form-label">Postcode</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <!-- <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-sm-3 col-form-label">City</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-sm-3 col-form-label">Country</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-sm-3 col-form-label">Night</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="ci_nights" placeholder="1" />
+                                    <input type="text" class="form-control" name="ci_nights" placeholder="1" value="{{ old('ci_nights') }}" />
+                                    @error('ci_nights')
+                                    <code>{{ $message }}</code>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -249,7 +196,10 @@
                             <div class="form-group">
                                 <label class="col-sm-3 col-form-label">Adults</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="ci_adults" placeholder="2" />
+                                    <input type="text" class="form-control" name="ci_adults" placeholder="2" value="{{ old('ci_adults') }}" />
+                                    @error('ci_adults')
+                                    <code>{{ $message }}</code>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -259,7 +209,10 @@
                             <div class="form-group">
                                 <label class="col-sm-3 col-form-label">Child</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="ci_child" placeholder="0" />
+                                    <input type="text" class="form-control" name="ci_child" placeholder="0" value="{{ old('ci_child') }}" />
+                                    @error('ci_child')
+                                    <code>{{ $message }}</code>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -279,8 +232,11 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <div class="save-btn">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+
                 </form>
 
 

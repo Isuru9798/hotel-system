@@ -1,5 +1,18 @@
 @extends('layouts.app')
 
+@section('css')
+
+<style type="text/css">
+    .save-btn {
+        float: right;
+    }
+
+    .div-gap {
+        margin-bottom: 2em;
+    }
+</style>
+@endsection
+
 @section('content')
 <div class="card">
     <div class="card-body">
@@ -31,14 +44,20 @@
                 <input type="hidden" name="itm_item_price" id="itm_item_price" value="0">
                 <div class="form-group col-md-6">
                     <label for="inputAddress2">Quentity</label>
-                    <input type="text" class="form-control" id="or_quantity" name="or_quantity" onkeyup="calTot()" value="0" placeholder="Quentity">
+                    <input type="text" class="form-control" id="or_quantity" name="or_quantity" onkeyup="calTot()" placeholder="Quentity" value="{{ old('or_quantity') }}">
+                    @error('or_quantity')
+                    <code>{{ $message }}</code>
+                    @enderror
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputCity">Service charge</label>
-                    <input type="text" class="form-control" id="or_service_chrge" name="or_service_chrge" onkeyup="calTot()" value="0" placeholder="Service charge">
+                    <input type="text" class="form-control" id="or_service_chrge" name="or_service_chrge" onkeyup="calTot()" placeholder="Service charge" value="{{ old('or_service_chrge') }}">
+                    @error('or_service_chrge')
+                    <code>{{ $message }}</code>
+                    @enderror
                 </div>
                 <div class="form-group col-md-4">
                     <label for="inputState">Total</label>
@@ -46,12 +65,12 @@
                 </div>
             </div>
             <input type="hidden" id="checked_rooms_id" name="checked_rooms_id" value="">
-            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <button type="submit" class="btn btn-primary save-btn">Save Changes</button>
         </form>
     </div>
 </div>
 
-
+<div class="div-gap"></div>
 <div class="card">
     <div class="card-body">
         <table class="table table-striped table-bordered table-hover">
