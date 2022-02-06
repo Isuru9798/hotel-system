@@ -6,11 +6,11 @@ use App\Http\Controllers\bill\RoomBillController;
 use App\Http\Controllers\bill\TaxiBillController;
 use App\Http\Controllers\checkIn\CheckInController;
 use App\Http\Controllers\checkOut\CheckOutController;
+use App\Http\Controllers\invoice\invoiceController;
 use App\Http\Controllers\mainAdmin\MainAdminController;
 use App\Http\Controllers\QR\QRController;
-use App\Http\Controllers\restaurant\ItemController;
 use App\Http\Controllers\restaurant\ItemsController;
-use App\Http\Controllers\rooms\RoomController;
+use App\Http\Controllers\Rooms\RoomController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -59,6 +59,7 @@ Route::prefix('main-admin')->group(function () {
 
         // check in
         Route::get('check-in', [CheckInController::class, 'index'])->name('checkIn');
+        Route::post('get-guest', [CheckInController::class, 'findGuest'])->name('findGuest');
         Route::post('add-check-in', [CheckInController::class, 'store'])->name('checkIn.add');
         Route::get('get-check-in/{id}', [CheckInController::class, 'getById'])->name('checkIn.getById');
         Route::get('cancel-check-in/{id}', [CheckInController::class, 'cancelCheckIn'])->name('checkIn.cancel');
@@ -94,9 +95,14 @@ Route::prefix('main-admin')->group(function () {
 
 
         // checkout
-
         Route::get('check-out', [CheckOutController::class, 'index'])->name('checkOut');
         Route::post('check-out-room-bills', [CheckOutController::class, 'getBills'])->name('checkOut.bills');
+        Route::post('check-out-store', [CheckOutController::class, 'checkout'])->name('checkOut.store');
+
+
+        // invoice
+        Route::get('invoice', [invoiceController::class, 'index'])->name('invoice');
+        Route::get('invoice-view/{id}', [invoiceController::class, 'invoice'])->name('invoice-view');
     });
 });
 Route::get('item-list-rooms/{id}', [QRController::class, 'index'])->name('qr-code.item-list');

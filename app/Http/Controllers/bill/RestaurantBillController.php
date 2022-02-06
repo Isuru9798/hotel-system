@@ -14,7 +14,7 @@ class RestaurantBillController extends Controller
     function index()
     {
         $items = Items::all();
-        $rooms = Rooms::all();
+        $rooms = Rooms::where('rm_availability', env('UNAVAILABLE'))->get();
         $restaurant_bills = DB::table('orders')
             ->select(
                 'orders.id as orders_id',
@@ -42,6 +42,7 @@ class RestaurantBillController extends Controller
         ];
         $validateData = $request->validate(
             [
+                'checked_rooms_id' => 'required|numeric',
                 'or_quantity' => 'required|numeric',
                 'or_service_chrge' => 'required|numeric',
             ],

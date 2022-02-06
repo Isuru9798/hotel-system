@@ -21,18 +21,22 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputEmail4">Room Id</label>
-                    <select class="form-control" id="roomSelect" onclick="getRoomData()">
+                    <select class="form-control" id="roomSelect" name="roomSelect" onclick="getRoomData()">
+                        <option value="null">select room</option>
                         @foreach($rooms as $room)
                         <option value="{{ $room->id }}">{{ $room->rm_number }}</option>
                         @endforeach
                     </select>
+                    @error('checked_rooms_id')
+                    <code>{{ $message }}</code>
+                    @enderror
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword4">Guest Name</label>
                     <input type="text" class="form-control" placeholder="Jone Doe" name="guest" id="guest" readonly>
                 </div>
             </div>
-            <div class="form-row ">
+            <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputAddress">Date</label>
                     <input type="date" class="form-control" name="tx_issue_date" placeholder="dd/mm/yyyy" value="{{ old('tx_issue_date') }}">
@@ -50,7 +54,7 @@
             </div>
 
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label for="inputCity">Vehicle Number</label>
                     <input type="text" class="form-control" id="tx_vehicle_num" name="tx_vehicle_num" placeholder="BDB - 2244" value="{{ old('tx_vehicle_num') }}">
                     @error('tx_vehicle_num')
@@ -58,26 +62,32 @@
                     @enderror
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="inputState">Number of Dayes</label>
-                    <input type="text" class="form-control" id="tx_num_of_days" name="tx_num_of_days" placeholder="1" value="{{ old('tx_num_of_days') }}">
-                    @error('tx_num_of_days')
-                    <code>{{ $message }}</code>
-                    @enderror
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="inputAddress2">Tax Amount</label>
-                    <input type="text" class="form-control" id="tx_tax" name="tx_tax" placeholder="Taxt Amount">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
                     <label for="inputZip">Amount</label>
-                    <input type="text" class="form-control" id="tx_amount" name="tx_amount" placeholder="Amount" value="{{ old('tx_amount') }}">
+                    <input type="text" class="form-control" id="tx_amount" name="tx_amount" placeholder="Amount" value="{{old('tx_amount') ? old('tx_amount') : '0'}}" onkeyup="calCost()" value="{{ old('tx_amount') }}">
                     @error('tx_amount')
                     <code>{{ $message }}</code>
                     @enderror
                 </div>
+                <div class="form-group col-md-4">
+                    <label for="inputState">Number of Dayes</label>
+                    <input type="text" class="form-control" id="tx_num_of_days" name="tx_num_of_days" placeholder="1" value="{{old('tx_num_of_days') ? old('tx_num_of_days') : '0'}}" onkeyup="calCost()">
+                    @error('tx_num_of_days')
+                    <code>{{ $message }}</code>
+                    @enderror
+                </div>
+
             </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputAddress2">Tax (%)</label>
+                    <input type="text" class="form-control" id="tx_tax" name="tx_tax" value="0" value="{{old('tx_tax') ? old('tx_tax') : '0'}}" placeholder="Taxt Amount" onkeyup="calCost()">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputZip">Total</label>
+                    <input type="text" class="form-control" id="Total" name="Total" placeholder="Amount" value="{{old('Total') ? old('Total') : '0'}}" readonly>
+                </div>
+            </div>
+
             <input type="hidden" id="checked_rooms_id" name="checked_rooms_id" value="">
 
             <button type="submit" class="btn btn-primary save-btn">Save changes</button>
@@ -194,10 +204,17 @@
     }
 
     function calCost() {
-        $d_rate = $('#rb_doller_rate').val();
-        $d_amount = $('#rb_amount_doller').val();
-        $lkr_cost = $d_rate * $d_amount;
-        $('#rb_cost').val($lkr_cost);
+        let tx_num_of_days = $('#tx_num_of_days').val();
+        let tx_amount = $('#tx_amount').val();
+        let tx_tax = $('#tx_tax').val();
+
+        let tax_amout = ((tx_num_of_days * tx_amount) * tx_tax) / 100;
+
+        let lkr_cost = (tx_num_of_days * tx_amount) + tax_amout;
+
+        $('#Total').val(lkr_cost);
+
+
     }
 </script>
 @endsection

@@ -22,10 +22,14 @@
                 <div class="form-group col-md-6">
                     <label for="inputEmail4">Room Id</label>
                     <select class="form-control" id="roomSelect" onclick="getRoomData()">
+                        <option value="null">select room</option>
                         @foreach($rooms as $room)
                         <option value="{{ $room->id }}">{{ $room->rm_number }}</option>
                         @endforeach
                     </select>
+                    @error('checked_rooms_id')
+                    <code>{{ $message }}</code>
+                    @enderror
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword4">Guest Name</label>
@@ -43,7 +47,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputAddress2">Doller Rate</label>
-                    <input type="text" class="form-control" name="rb_doller_rate" placeholder="$ Rate" value="{{ old('rb_doller_rate') }}">
+                    <input type="text" class="form-control" name="rb_doller_rate" id="rb_doller_rate" placeholder="$ Rate" value="{{ old('rb_doller_rate') }}">
                     @error('rb_doller_rate')
                     <code>{{ $message }}</code>
                     @enderror
@@ -53,7 +57,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputCity">Amount By Doller</label>
-                    <input type="text" class="form-control" name="rb_amount_doller" onkeyup="calCost()" placeholder="Amount By $" value="{{ old('rb_amount_doller') }}">
+                    <input type="text" class="form-control" name="rb_amount_doller" id="rb_amount_doller" onkeyup="calCost()" placeholder="Amount By $" value="{{ old('rb_amount_doller') }}">
                     @error('rb_amount_doller')
                     <code>{{ $message }}</code>
                     @enderror
@@ -138,19 +142,23 @@
     function getRoomData() {
         let roomId = $('#roomSelect').val();
         let _token = $('meta[name="csrf-token"]').attr('content');
-        $.ajax({
-            type: 'POST',
-            url: "{{ route('room-bills.getByRoom') }}",
-            data: {
-                id: roomId,
-                _token: _token
-            },
-            success: function(data) {
-                $('#checked_rooms_id').val(data.checked_rooms_id);
-                $('#guest').val(data.gs_name);
-                console.log(data);
-            }
-        });
+        if (roomId !== 0) {
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('room-bills.getByRoom') }}",
+                data: {
+                    id: roomId,
+                    _token: _token
+                },
+                success: function(data) {
+                    $('#checked_rooms_id').val(data.checked_rooms_id);
+                    $('#guest').val(data.gs_name);
+                    console.log(data);
+                }
+            });
+        } else {
+            alert('please select room')
+        }
     }
 
     function calCost() {

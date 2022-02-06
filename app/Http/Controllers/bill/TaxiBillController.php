@@ -12,7 +12,8 @@ class TaxiBillController extends Controller
 {
     function index()
     {
-        $rooms = Rooms::all();
+        $rooms = Rooms::where('rm_availability', env('UNAVAILABLE'))->get();
+
         $taxi_bills = DB::table('taxis')
             ->select(
                 'taxis.id as taxi_id',
@@ -41,14 +42,13 @@ class TaxiBillController extends Controller
             [
                 'tx_destination' => 'required|string',
                 'tx_vehicle_num' => 'required|string',
-                'tx_status' => 'required|string',
                 'tx_num_of_days' => 'required|string',
                 'tx_issue_date' => 'required|string',
                 'tx_amount' => 'required|numeric',
+                'checked_rooms_id' => 'required|numeric',
             ],
             $messages
         );
-
         Taxis::create([
             'tx_destination' => $request->tx_destination,
             'tx_vehicle_num' => $request->tx_vehicle_num,

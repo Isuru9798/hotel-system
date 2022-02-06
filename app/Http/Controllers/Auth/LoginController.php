@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -60,7 +61,7 @@ class LoginController extends Controller
             'password' => 'required | min:6'
         ]);
         if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
-            if (auth()->user()->role == 1) {
+            if (auth()->user()->role == env('ADMIN')) {
                 return redirect()->route('mainAdmin.dashboard');
             }
             // elseif (auth()->user()->role == 2) {

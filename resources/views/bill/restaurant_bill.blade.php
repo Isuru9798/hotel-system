@@ -22,10 +22,14 @@
                 <div class="form-group col-md-6">
                     <label for="inputEmail4">Room Id</label>
                     <select class="form-control" id="roomSelect" onclick="getRoomData()">
+                        <option value="null">select room</option>
                         @foreach($rooms as $room)
                         <option value="{{ $room->id }}">{{ $room->rm_number }}</option>
                         @endforeach
                     </select>
+                    @error('checked_rooms_id')
+                    <code>{{ $message }}</code>
+                    @enderror
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword4">Guest Name</label>
@@ -53,8 +57,8 @@
 
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="inputCity">Service charge</label>
-                    <input type="text" class="form-control" id="or_service_chrge" name="or_service_chrge" onkeyup="calTot()" placeholder="Service charge" value="{{ old('or_service_chrge') }}">
+                    <label for="inputCity">Service charge (%)</label>
+                    <input type="text" class="form-control" id="or_service_chrge" name="or_service_chrge" onkeyup="calTot()" value="0" placeholder="Service charge" >
                     @error('or_service_chrge')
                     <code>{{ $message }}</code>
                     @enderror
@@ -76,7 +80,7 @@
         <table class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
-                    <th>itm_img</th>
+                    <th>Image</th>
                     <th>Room Number</th>
                     <th>Item Description</th>
                     <th>Item Code</th>
@@ -238,9 +242,14 @@
     function calTot() {
         let itm_item_price = parseInt($('#itm_item_price').val());
         let or_quantity = parseInt($('#or_quantity').val());
-        let or_service_chrge = parseInt($('#or_service_chrge').val());
 
-        $('#or_tot').val((itm_item_price * or_quantity) + or_service_chrge);
+        let or_service_chrge = parseInt($('#or_service_chrge').val());
+        if (or_service_chrge > 100) {
+            alert('invalid presantage!');
+        }
+        let service_charge = ((itm_item_price * or_quantity) * or_service_chrge) / 100
+
+        $('#or_tot').val((itm_item_price * or_quantity) + service_charge);
 
     }
 </script>

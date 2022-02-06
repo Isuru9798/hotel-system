@@ -12,7 +12,7 @@ class RoomBillController extends Controller
 {
     function index()
     {
-        $rooms = Rooms::all();
+        $rooms = Rooms::where('rm_availability', env('UNAVAILABLE'))->get();
         $room_bills = DB::table('room_bills')
             ->select(
                 'room_bills.id as room_bill_id',
@@ -53,6 +53,7 @@ class RoomBillController extends Controller
                 'rb_doller_rate' => 'required|numeric',
                 'rb_amount_doller' => 'required|numeric',
                 'rb_cost' => 'required|numeric',
+                'checked_rooms_id' => 'required|numeric',
             ],
             $messages
         );

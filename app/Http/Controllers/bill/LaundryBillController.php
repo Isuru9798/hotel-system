@@ -12,7 +12,8 @@ class LaundryBillController extends Controller
 {
     function index()
     {
-        $rooms = Rooms::all();
+        $rooms = Rooms::where('rm_availability', env('UNAVAILABLE'))->get();
+
         $laundry_bills = DB::table('laundries')
             ->select(
                 'laundries.id as laundry_id',
@@ -41,6 +42,7 @@ class LaundryBillController extends Controller
                 'lon_item' => 'required|string',
                 'lon_amount' => 'required|numeric',
                 'lon_quantity' => 'required|numeric',
+                'checked_rooms_id' => 'required|numeric',
             ],
             $messages
         );

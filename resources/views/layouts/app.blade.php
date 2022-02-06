@@ -3,6 +3,7 @@
 
 <head>
     @include('layouts.header')
+
     @yield('css')
 </head>
 

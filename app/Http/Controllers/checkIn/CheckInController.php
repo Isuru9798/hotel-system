@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\checkIn;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bill;
 use App\Models\CheckedRooms;
 use App\Models\CheckIn;
 use App\Models\Guests;
@@ -64,6 +65,7 @@ class CheckInController extends Controller
     }
     function store(Request $request)
     {
+
         $messages = [
             'required' => 'This Field is required',
         ];
@@ -83,15 +85,21 @@ class CheckInController extends Controller
             ],
             $messages
         );
-
-        $guest = Guests::create([
-            'gs_name' => $request->gs_name,
-            'gs_address' => $request->gs_address,
-            'gs_gender' => $request->gs_gender,
-            'gs_passport_or_id' => $request->gs_passport_or_id,
-            'gs_mobile' => $request->gs_mobile,
-            'gs_country' => $request->gs_country,
-        ])->id;
+        if (count(json_decode($request->selectedRooms)) == 0) {
+            return redirect()->route('checkIn')->with('room_select', 'Please Select the room');
+        }
+        if ($request->guest_status == 0) {
+            $guest = Guests::create([
+                'gs_name' => $request->gs_name,
+                'gs_address' => $request->gs_address,
+                'gs_gender' => $request->gs_gender,
+                'gs_passport_or_id' => $request->gs_passport_or_id,
+                'gs_mobile' => $request->gs_mobile,
+                'gs_country' => $request->gs_country,
+            ])->id;
+        } else {
+            $guest = $request->guest_id;
+        }
         $checkIn = CheckIn::create([
             'ci_in_date' => date('Y-m-d', strtotime($request->ci_in_date)),
             'ci_out_date' =>  date('Y-m-d', strtotime($request->ci_out_date)),
@@ -109,7 +117,7 @@ class CheckInController extends Controller
                     'rm_availability' => env('UNAVAILABLE'),
                 ]);
             CheckedRooms::create([
-                'status' => 'unpaid',
+                'status' => env('UNPAID'),
                 'rooms_id' => $value,
                 'check_ins_id' => $checkIn,
             ]);
@@ -165,6 +173,7 @@ class CheckInController extends Controller
     }
     function cancelCheckIn($id)
     {
+
         CheckIn::where('id', $id)
             ->update([
                 'ci_status' => env('CANCELED'),
@@ -177,4 +186,19 @@ class CheckInController extends Controller
     //     $items = Items::all();
     //     return view('items.items', ['items' => $items]);
     // }
+    function findGuest(Request $request)
+    {
+        $guest = Guests::where('gs_passport_or_id', $request->gs_passport_or_id)->first();
+        if (Guests::where('gs_passport_or_id', $request->gs_passport_or_id)->exists()) {
+            $status = true;
+        } else {
+            $status = false;
+        }
+        return response()->json(
+            [
+                'status' => $status,
+                'guest' => $guest,
+            ]
+        );
+    }
 }

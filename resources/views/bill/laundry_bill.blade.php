@@ -23,10 +23,14 @@
                 <div class="form-group col-md-6">
                     <label for="inputEmail4">Room Id</label>
                     <select class="form-control" id="roomSelect" onclick="getRoomData()">
+                        <option value="null">select room</option>
                         @foreach($rooms as $room)
                         <option value="{{ $room->id }}">{{ $room->rm_number }}</option>
                         @endforeach
                     </select>
+                    @error('checked_rooms_id')
+                    <code>{{ $message }}</code>
+                    @enderror
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword4">Guest Name</label>
